@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
-import { generateAuthToken } from "../helper/authToken";
+
 
 
 const userSchema=new mongoose.Schema({
@@ -26,7 +24,7 @@ const userSchema=new mongoose.Schema({
     password:{
         type:String,
         required:true,
-        select:false
+        select:true,
 
     },
     socketId:{
@@ -36,5 +34,8 @@ const userSchema=new mongoose.Schema({
 
 })
 
-userSchema.method('generateAuthToken',generateAuthToken)
+
+const userModel=mongoose.model('user',userSchema)
+
+export default userModel
 

@@ -2,17 +2,18 @@ import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
 
 
-export function generateAuthToken() {
-    const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET);
+export function generateAuthToken(user) {
+    
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET,{expiresIn:'24h'});
     return token;
 }
 
 
 
-export async function compressPassword(){
- return await bcrypt.hash(this.password, 10);
-    
+export async function comparePassword(plainPassword, hashedPassword) {
+    return await bcrypt.compare(plainPassword, hashedPassword);
 }
+
 
 
 export async function hashPassword(password) {
